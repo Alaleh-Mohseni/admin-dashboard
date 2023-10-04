@@ -1,0 +1,40 @@
+body{
+    background-color: #f8f9fa;
+    direction: rtl;
+    font-family: 'IRANYekan';
+}
+
+a {
+    text-decoration: none;
+}
+
+label {
+    color: #666666;
+    /* font-weight: 600; */
+}
+
+.logo {
+    height: 80px;
+}
+
+#eye {
+    position: absolute;
+    top: 37px;
+    left: 8px;
+}
+
+.parag {
+    color: #495057;
+}
+
+.price {
+    background-color: #dbecff;
+    color: #0a58ca;
+    padding: 5px 7px;
+    border-radius: 5px;
+    margin: 0;
+}
+
+.course {
+    font-size: 14px;
+}
