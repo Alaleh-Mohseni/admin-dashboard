@@ -1,10 +1,9 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-function ShowPassword() {
+function ShowPassword({ showPassword, setShowPassword }) {
     return (
-        <div id="eye">
-            <FaEye />
-            {/* <FaEyeSlash/> */}
+        <div id="eye" onClick={() => setShowPassword(!showPassword)}>
+            {!showPassword ? <FaEyeSlash/> : <FaEye /> }
         </div>
     )
 }

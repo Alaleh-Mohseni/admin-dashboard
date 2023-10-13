@@ -38,3 +38,20 @@ label {
 .course {
     font-size: 14px;
 }
+
+.hero-section__h1 {
+    color: #495057;
+    font-weight: 900;
+    line-height: 60px;
+}
+
+.hero-section__p {
+    font-size: 20px;
+    color: #495057;
+    padding: 20px 0;
+}
+
+.introduction span {
+    color: #495057;
+    padding-right: 7px;
+}

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const ResponsiveNavbar = () => {
     return (
-        <div className='mt-5'>
-            <Container>
+        <div className='my-4 border-bottom border-2'>
+            <Container className='mb-3'>
                 <Navbar expand="lg">
                     <div className='container-fluid'>
                         <Navbar.Toggle aria-controls="navbar-toggle" />
