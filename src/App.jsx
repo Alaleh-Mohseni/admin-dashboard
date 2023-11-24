@@ -1,12 +1,14 @@
 import { RouterProvider } from "react-router-dom";
-import { Container } from 'react-bootstrap'
-import router from "./config/router";
+import { Container } from 'react-bootstrap';
+import AuthProvider from "@contexts/auth-provider";
+import router from "@config/router";
 
 function App() {
-
   return (
     <Container>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </Container>
   )
 }

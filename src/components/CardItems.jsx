@@ -1,7 +1,7 @@
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { FaArrowLeft } from "react-icons/fa";
-import { coursesList } from '../data/items';
+import { coursesList } from '@data/items';
 
 
 function CardItems() {

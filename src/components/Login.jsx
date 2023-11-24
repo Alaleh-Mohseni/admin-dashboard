@@ -1,41 +1,61 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useForm } from "react-hook-form";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import logo from "../assets/images/t-logo.png"
+import { AuthContext } from "@contexts/auth-provider";
+import { auth } from "@config/firebase";
+import { useRedirectActiveUser } from "@hooks/useRedirectActiveUser";
+import logo from "@assets/images/t-logo.png"
 import ShowPassword from "./ShowPassword";
 
 function Login() {
-    const [showPassword, setShowPassword] = useState(false)
+    const { login } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const onSubmit = data => console.log(data)
+    const [showPassword, setShowPassword] = useState(false)
+    const [invalid, setInvalid] = useState(false)
+
+    useRedirectActiveUser(auth.currentUser, "/profile");
+
+    const onSubmit = async (data) => {
+        try {
+            await login(auth, data?.email, data?.password)
+            setInvalid(false)
+            console.log("user logged in")
+        } catch (error) {
+            setInvalid(true)
+            setTimeout(() => {
+                setInvalid(false)
+            }, 3000);
+        }
+    }
+
 
     return (
         <div className="mb-3">
+            {invalid && <p className="alert alert-danger text-center">Error: invalid login credentials</p>}
             <div className="text-center">
                 <img src={logo} className="logo" />
             </div>
             <p className="text-center mb-3 text-secondary">جهت ورود لازم است از طریق موبایل و رمز عبور خود اقدام نمایید</p>
             <Form className="mb-3" onSubmit={handleSubmit(onSubmit)}>
-                <Form.Group className="mb-3" controlId="formPhoneNumber" >
-                    <Form.Label>موبایل</Form.Label>
+                <Form.Group className="mb-3" controlId="formEmail" >
+                    <Form.Label>ایمیل</Form.Label>
                     <Form.Control
-                        {...register('mobile', { required: 'موبایل الزامی است', minLength: 11, maxLength: 11 })}
-                        className={`${errors.mobile && 'is-invalid'}`}
+                        type="email"
+                        {...register('email', {
+                            required: 'ایمیل الزامی است',
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "ایمیل معتبر نیست",
+                            }
+                        })}
+                        className={`${errors.email && 'is-invalid'}`}
                     />
-                    {errors.mobile && errors.mobile.type === 'required' &&
-                        (
-                            <p className="text-danger small mt-1">
-                                {errors.mobile?.message}
-                            </p>
-                        )
+                    {errors.email && errors.email.type === 'required' &&
+                        <p className="text-danger small mt-1">
+                            {errors.email?.message}
+                        </p>
                     }
-                    {errors.mobile && (errors.mobile.type === 'minLength' || errors.mobile.type === 'maxLength') &&
-                        (
-                            <p className="text-danger small mt-1">
-                                موبایل باید 11 رقم باشد
-                            </p>
-                        )}
                 </Form.Group>
 
                 <Form.Group className="mb-3 position-relative" controlId="formBasicPassword" >
@@ -47,11 +67,9 @@ function Login() {
                     />
                     <ShowPassword showPassword={showPassword} setShowPassword={setShowPassword} />
                     {errors.password && errors.password.type === 'required' &&
-                        (
-                            <p className="text-danger small mt-1">
-                                {errors.password?.message}
-                            </p>
-                        )
+                        <p className="text-danger small mt-1">
+                            {errors.password?.message}
+                        </p>
                     }
                 </Form.Group>
 

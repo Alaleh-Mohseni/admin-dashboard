@@ -1,7 +1,8 @@
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const ResponsiveNavbar = () => {
+
+function Navigation(){
     return (
         <div className='my-4 border-bottom border-2'>
             <Container className='mb-3'>
@@ -12,7 +13,7 @@ const ResponsiveNavbar = () => {
                             <Nav className="align-items-center fw-semibold">
                                 <Nav.Item >
                                     <Button variant='primary'>
-                                        <Link className='text-white' to="/login">حساب کاربری</Link>
+                                        <Link className='text-white' to="/login">ورود  |  عضویت</Link>
                                     </Button>
                                 </Nav.Item>
                                 <Nav.Item className='px-5'>دوره های آموزشی</Nav.Item>
@@ -27,4 +28,4 @@ const ResponsiveNavbar = () => {
     )
 }
 
-export default ResponsiveNavbar
+export default Navigation
